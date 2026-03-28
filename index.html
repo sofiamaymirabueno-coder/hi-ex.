@@ -60,18 +60,22 @@
     }
 
     function noClick() {
-      let music = document.getElementById("bgMusic");
+  let music = document.getElementById("bgMusic");
 
-      // 👉 adjust mo ito para sa chorus
-      music.currentTime = 60;
-      music.play();
+  music.currentTime = 60;
 
-      document.body.innerHTML = `
-        <h1>sure ka? 😔</h1>
-        <p>pakinggan mo muna...</p>
-      `;
+  // FORCE PLAY after click
+  music.play().then(() => {
+    console.log("playing");
+  }).catch(err => {
+    alert("tap ulit 😭");
+  });
 
-      moveNo();
+  document.body.innerHTML = `
+    <h1>sure ka? 😔</h1>
+    <p>pakinggan mo muna...</p>
+  `;
+}
     }
 
     function moveNo() {
