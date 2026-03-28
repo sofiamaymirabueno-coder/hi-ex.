@@ -1,100 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>hi ex</title>
-  <style>
-    body {
-      text-align: center;
-      font-family: Arial, sans-serif;
-      background-color: #ffe6e6;
-      margin-top: 100px;
-      overflow: hidden;
-    }
+<meta charset="UTF-8">
+<title>why can’t we be together again baby?</title>
 
-    h1 { font-size: 35px; }
-    p { font-size: 22px; }
+<style>
+  body {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    background-color: #ffe6e6;
+    margin-top: 100px;
+    overflow: hidden;
+  }
 
-    button {
-      padding: 15px 30px;
-      font-size: 20px;
-      margin: 10px;
-      cursor: pointer;
-      border: none;
-      border-radius: 10px;
-      position: relative;
-    }
+  h1 { font-size: 28px; }
+  p { font-size: 20px; }
 
-    #yesBtn {
-      background-color: #ff4d6d;
-      color: white;
-      transition: 0.3s;
-    }
+  button {
+    padding: 15px 30px;
+    font-size: 20px;
+    margin: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    position: relative;
+  }
 
-    #noBtn {
-      background-color: #ccc;
-      position: absolute;
-    }
-  </style>
+  #yesBtn {
+    background-color: #ff4d6d;
+    color: white;
+    transition: 0.3s;
+  }
+
+  #noBtn {
+    background-color: #ccc;
+    position: absolute;
+  }
+
+  #lyrics {
+    margin-top: 20px;
+    font-style: italic;
+    color: #444;
+  }
+
+  .heart {
+    position: fixed;
+    color: red;
+    font-size: 20px;
+    animation: floatUp 3s linear infinite;
+  }
+
+  @keyframes floatUp {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(-300px); opacity: 0; }
+  }
+</style>
 </head>
+
 <body>
 
-  <h1>hi ex</h1>
-  <p>may chance pa ba?</p>
+<h1>why can’t we be together again baby?</h1>
+<p>may chance pa ba o wala na?</p>
 
-  <button id="yesBtn" onclick="yesClick()">Yes</button>
-  <button id="noBtn" onclick="noClick()">No</button>
+<button id="yesBtn" onclick="yesClick()">Yes</button>
+<button id="noBtn" onclick="noClick()">No</button>
 
-  <audio id="bgMusic">
-    <source src="music.mp3" type="audio/mpeg">
-  </audio>
+<p id="lyrics"></p>
 
-  <script>
-    let yesSize = 20;
+<audio id="bgMusic">
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
 
-    function yesClick() {
-      document.body.innerHTML = `
-        <h1>can we go back to the days our love was strong?</h1>
-        <p>i'll do better this time.</p>
-      `;
-    }
+<script>
+let yesSize = 20;
+let firstNoClick = true;
 
-    function noClick() {
+// YES CLICK
+function yesClick() {
+  document.body.innerHTML = `
+    <h1>💖💖💖</h1>
+    <p>
+    hzhshx xabe k n nga bah eih.... miss m tlg aq no... tutuu b ung ka-call m... 
+    kung ayaw m n tlga.... ☹️☹️☹️ sad aq xd char.. hello sau... 
+    pa-long press k n lg jan ah,,, hays xad ak toloi... sowwy 💔💖
+    </p>
+  `;
+  startHearts();
+}
+
+// NO CLICK
+function noClick() {
   let music = document.getElementById("bgMusic");
 
-  music.currentTime = 60;
+  if (firstNoClick) {
+    music.currentTime = 60; // chorus start
+    music.play().catch(() => {});
+    showLyrics();
+    firstNoClick = false;
+  }
 
-  // FORCE PLAY after click
-  music.play().then(() => {
-    console.log("playing");
-  }).catch(err => {
-    alert("tap ulit 😭");
-  });
+  // move NO button
+  const noBtn = document.getElementById("noBtn");
+  const maxX = window.innerWidth - 100;
+  const maxY = window.innerHeight - 100;
 
-  document.body.innerHTML = `
-    <h1>sure ka? 😔</h1>
-    <p>pakinggan mo muna...</p>
-  `;
+  const randX = Math.floor(Math.random() * maxX);
+  const randY = Math.floor(Math.random() * maxY);
+
+  noBtn.style.left = randX + "px";
+  noBtn.style.top = randY + "px";
+
+  // grow YES
+  yesSize += 8;
+  const yesBtn = document.getElementById("yesBtn");
+  yesBtn.style.fontSize = yesSize + "px";
+  yesBtn.style.padding = yesSize + "px";
 }
-    }
 
-    function moveNo() {
-      const noBtn = document.getElementById("noBtn");
-      const maxX = window.innerWidth - 100;
-      const maxY = window.innerHeight - 100;
+// LYRICS (simplified vibe lang)
+function showLyrics() {
+  const lyrics = document.getElementById("lyrics");
+  lyrics.innerHTML = "🎶 baby... bumalik ka na sa akin... di ko kayang mawala ka... 🎶";
+}
 
-      const randX = Math.floor(Math.random() * maxX);
-      const randY = Math.floor(Math.random() * maxY);
+// HEARTS ANIMATION
+function startHearts() {
+  setInterval(() => {
+    let heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.bottom = "0px";
+    document.body.appendChild(heart);
 
-      noBtn.style.left = randX + "px";
-      noBtn.style.top = randY + "px";
-
-      yesSize += 5;
-      const yesBtn = document.getElementById("yesBtn");
-      yesBtn.style.fontSize = yesSize + "px";
-      yesBtn.style.padding = yesSize + "px";
-    }
-  </script>
+    setTimeout(() => {
+      heart.remove();
+    }, 3000);
+  }, 300);
+}
+</script>
 
 </body>
 </html>
