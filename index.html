@@ -4,44 +4,93 @@
   <meta charset="UTF-8">
   <title>hi ex</title>
   <style>
-    body { text-align: center; font-family: Arial; background-color: #ffe6e6; margin-top: 100px; }
-    h1 { font-size: 35px; margin-bottom: 30px; }
-    p { font-size: 22px; margin-bottom: 20px; }
-    button { padding: 15px 30px; font-size: 20px; margin: 10px; cursor: pointer; border: none; border-radius: 10px; }
-    #yesBtn { background-color: #ff4d6d; color: white; transition: 0.3s; }
-    #noBtn { background-color: #ccc; }
-    #musicBtn { margin-top: 20px; background-color: #444; color: white; }
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      background-color: #ffe6e6;
+      margin-top: 100px;
+      overflow: hidden;
+    }
+
+    h1 { font-size: 35px; }
+    p { font-size: 22px; }
+
+    button {
+      padding: 15px 30px;
+      font-size: 20px;
+      margin: 10px;
+      cursor: pointer;
+      border: none;
+      border-radius: 10px;
+      position: relative;
+    }
+
+    #yesBtn {
+      background-color: #ff4d6d;
+      color: white;
+      transition: 0.3s;
+    }
+
+    #noBtn {
+      background-color: #ccc;
+      position: absolute;
+    }
   </style>
 </head>
 <body>
+
   <h1>hi ex</h1>
   <p>may chance pa ba?</p>
+
   <button id="yesBtn" onclick="yesClick()">Yes</button>
   <button id="noBtn" onclick="noClick()">No</button>
-  <br>
-  <button id="musicBtn" onclick="playMusic()">Play Music 🎶</button>
 
-  <audio id="bgMusic" loop>
+  <audio id="bgMusic">
     <source src="music.mp3" type="audio/mpeg">
   </audio>
 
   <script>
     let yesSize = 20;
+
     function yesClick() {
-      document.body.innerHTML = `<h1>alam ko naman eh 😌❤️</h1><p>i'll do better this time.</p>`;
+      document.body.innerHTML = `
+        <h1>can we go back to the days our love was strong?</h1>
+        <p>i'll do better this time.</p>
+      `;
     }
+
     function noClick() {
-      yesSize += 10;
-      let yesBtn = document.getElementById("yesBtn");
+      let music = document.getElementById("bgMusic");
+
+      // 👉 adjust mo ito para sa chorus
+      music.currentTime = 60;
+      music.play();
+
+      document.body.innerHTML = `
+        <h1>sure ka? 😔</h1>
+        <p>pakinggan mo muna...</p>
+      `;
+
+      moveNo();
+    }
+
+    function moveNo() {
+      const noBtn = document.getElementById("noBtn");
+      const maxX = window.innerWidth - 100;
+      const maxY = window.innerHeight - 100;
+
+      const randX = Math.floor(Math.random() * maxX);
+      const randY = Math.floor(Math.random() * maxY);
+
+      noBtn.style.left = randX + "px";
+      noBtn.style.top = randY + "px";
+
+      yesSize += 5;
+      const yesBtn = document.getElementById("yesBtn");
       yesBtn.style.fontSize = yesSize + "px";
       yesBtn.style.padding = yesSize + "px";
     }
-    function playMusic() {
-      document.getElementById("bgMusic").play();
-    }
-    window.onload = function() {
-      document.getElementById("bgMusic").play().catch(() => {});
-    }
   </script>
+
 </body>
 </html>
